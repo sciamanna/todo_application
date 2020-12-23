@@ -11,19 +11,26 @@ function App() {
     { text: "Make oat milk", completed: false, date: "2019-11-27", id: '003' }, 
     { text: "Go for a walk", completed: true, date: "2020-01-31", id: '004' },
     { text: "Go to sleep", completed: false, date: "2020-02-24", id: '005' },
-    { text: "Wake up", completed: false, date: "2020-03-30", id: '005' }
+    { text: "Wake up", completed: false, date: "2020-03-30", id: '006' }
   ])
+
+const deleteTask = id => {
+  const updatedTasks = tasks.filter(task => task.id !== id)
+  setTasks(updatedTasks)
+}
+
 const incompleteTasks = tasks.filter(task => !task.completed)
 const completeTasks = tasks.filter(task => task.completed)
   return (
     <div className="App">
       <Header taskCount={incompleteTasks.length}/>
       <main className="all-tasks">
-      <TaskList tasks={ incompleteTasks } status="incomplete"/>
-      <TaskList tasks={ completeTasks } status="complete"/>
+      <TaskList deleteTask={ deleteTask} tasks={ incompleteTasks } status="incomplete"/>
+      <TaskList deleteTask={ deleteTask} tasks={ completeTasks } status="complete"/>
       </main>
     </div>
   );
 } 
 
 export default App;
+   
